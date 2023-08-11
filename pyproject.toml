@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "proc-ex"
+version = "0.1.0"
+description = ""
+authors = ["_MircoWave_ <clarknick1990@gmail.com>"]
+readme = "README.md"
+packages = [{include = "proc_ex"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
