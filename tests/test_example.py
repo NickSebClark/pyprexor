@@ -1,6 +1,7 @@
 import example
-import pyprexor as ex
+
+from unittest.mock import patch
 
 
 def test_example_simple():
-    ex.process(example.simple_process, 10)
+    example.main()

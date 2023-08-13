@@ -17,5 +17,11 @@ def simple_process(number_1: int = 1, number_2: int = 2, text_param: str = "defa
     return number_1 + number_2
 
 
+def main():
+    ex.initialise()
+
+    simple_process(12)
+
+
 if __name__ == "__main__":
-    ex.process(simple_process, 10)
+    main()

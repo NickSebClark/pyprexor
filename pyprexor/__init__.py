@@ -1,1 +1,1 @@
-from pyprexor.core import PyProcess, process
+from pyprexor.core import PyProcess, initialise
