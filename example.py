@@ -1,4 +1,5 @@
 import pyprexor as ex
+from pyprexor.datastore import InMemoryDataStore
 
 
 @ex.PyProcess
@@ -18,9 +19,15 @@ def simple_process(number_1: int = 1, number_2: int = 2, text_param: str = "defa
 
 
 def main():
-    ex.initialise()
+    ds = InMemoryDataStore([{"id": 1, "number_1": 2, "number_2": 3}, {"id": 2, "text_param": "non-default"}])
 
-    simple_process(12)
+    ex.initialise(ds)
+
+    simple_process(1)
+
+    simple_process(2)
+
+    print(ds.read_all_process_data())
 
 
 if __name__ == "__main__":

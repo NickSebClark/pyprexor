@@ -7,13 +7,19 @@ class Datastore:
 
 
 class InMemoryDataStore(Datastore):
-    def __init__(self, parameter_sets: list[dict], key: str = "id"):
-        self.parameter_sets = parameter_sets
+    def __init__(self, parameter_sets: list[dict], key: str = "id", re_index: bool = False):
+        if re_index:
+            self.parameter_sets = {index: parameter_set for (index, parameter_set) in enumerate(parameter_sets)}
+            for key in self.parameter_sets:
+                self.parameter_sets[key]["id"] = key
+        else:
+            self.parameter_sets = {parameter_set[key]: parameter_set for parameter_set in parameter_sets}
+
         self.process_data = []
         self.key = key
 
     def get_parameter_set(self, id: int):
-        return [parameter_set for parameter_set in self.parameter_sets if parameter_set[self.key] == id][0]
+        return self.parameter_sets[id]
 
     def write_process_data(self, process_data: dict):
         self.process_data.append(process_data)
