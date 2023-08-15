@@ -1,4 +1,4 @@
-import example
+import example_app.example as example
 
 from unittest.mock import patch
 

@@ -1,8 +1,12 @@
 import inspect
 import pyprexor.datastore as ds
-from typing import Type
+import pyprexor
+from datetime import datetime
+import getpass
+import importlib.metadata
 
 datastore: ds.Datastore
+sw_version = "0.0.0"
 
 
 class PyProcess:
@@ -30,7 +34,10 @@ class PyProcess:
         result = self.func(**func_parameters)
 
         process_data = {}
-        process_data["output"] = result
+        process_data["datetime"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        process_data["user"] = getpass.getuser()
+        process_data["sw_version"] = sw_version
+        process_data["data"] = result
         process_data["name"] = self.func.__name__
 
         datastore.write_process_data(process_data)
@@ -42,3 +49,22 @@ class PyProcess:
 def initialise(store: ds.Datastore):
     global datastore
     datastore = store
+
+    current_frame = inspect.currentframe()
+
+    # Get the caller's frame
+    caller_frame = current_frame.f_back
+
+    # Get the caller's module
+    caller_module = inspect.getmodule(caller_frame)
+
+    # Get the caller's package
+    caller_package = caller_module.__package__
+
+    global sw_version
+
+    sw_version = caller_package
+
+    import __main__
+
+    print(__main__.__file__)

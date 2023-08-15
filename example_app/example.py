@@ -29,6 +29,8 @@ def main():
 
     print(ds.read_all_process_data())
 
+    print(__name__)
+
 
 if __name__ == "__main__":
     main()
