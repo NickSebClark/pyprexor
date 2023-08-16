@@ -1,3 +1,0 @@
-import example
-
-example.main()

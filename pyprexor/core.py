@@ -4,6 +4,7 @@ import pyprexor
 from datetime import datetime
 import getpass
 import importlib.metadata
+from importlib.metadata import version
 
 datastore: ds.Datastore
 sw_version = "0.0.0"
@@ -16,20 +17,23 @@ class PyProcess:
     def __call__(self, set_id):
         print(f"Load parameter set {set_id}")
 
-        sig = inspect.signature(self.func)
-        func_params = sig.parameters
-
         # get all the parameters from the parameter dictionary
-        parameters = datastore.get_parameter_set(set_id)
+        parameter_set = datastore.get_parameter_set(set_id)
 
+        func_signature = inspect.signature(self.func).parameters
+
+        # loop through each item in the function signature to extract the required parameters from the parameter set.
         func_parameters = {}
-
-        for name, param in func_params.items():
-            if name not in parameters:
-                value = param.default
+        for name, param in func_signature.items():
+            # is a value set in the parameter set?
+            if name not in parameter_set:
+                if param.default == inspect.Parameter.empty:
+                    raise KeyError(f"Required parameter {name} not present in the parameter set.")
+                else:
+                    param_value = param.default
             else:
-                value = parameters[name]
-            func_parameters[name] = value
+                param_value = parameter_set[name]
+            func_parameters[name] = param_value
 
         result = self.func(**func_parameters)
 
@@ -40,31 +44,16 @@ class PyProcess:
         process_data["data"] = result
         process_data["name"] = self.func.__name__
 
+        # write the result to the db
         datastore.write_process_data(process_data)
 
-        # write the result to the db
+        # return the result as normal in case we want to use it.
         return result
 
 
-def initialise(store: ds.Datastore):
+def initialise(store: ds.Datastore, version: str = ""):
     global datastore
     datastore = store
 
-    current_frame = inspect.currentframe()
-
-    # Get the caller's frame
-    caller_frame = current_frame.f_back
-
-    # Get the caller's module
-    caller_module = inspect.getmodule(caller_frame)
-
-    # Get the caller's package
-    caller_package = caller_module.__package__
-
     global sw_version
-
-    sw_version = caller_package
-
-    import __main__
-
-    print(__main__.__file__)
+    sw_version = version

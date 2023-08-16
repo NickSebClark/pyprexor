@@ -1,9 +1,10 @@
 import pyprexor as ex
 from pyprexor.datastore import InMemoryDataStore
+from importlib.metadata import version
 
 
 @ex.PyProcess
-def simple_process(number_1: int = 1, number_2: int = 2, text_param: str = "default") -> int:
+def simple_process(number_1, number_2: int = 2, text_param: str = "default") -> int:
     """An example process for demonstration.
 
     Args:
@@ -19,17 +20,18 @@ def simple_process(number_1: int = 1, number_2: int = 2, text_param: str = "defa
 
 
 def main():
-    ds = InMemoryDataStore([{"id": 1, "number_1": 2, "number_2": 3}, {"id": 2, "text_param": "non-default"}])
+    ds = InMemoryDataStore(
+        [{"id": 1, "number_1": 2, "number_2": 3}, {"id": 2, "number_2": 1, "text_param": "non-default"}]
+    )
 
-    ex.initialise(ds)
+    ex.initialise(ds, version="ex")
 
     simple_process(1)
 
-    simple_process(2)
-
-    print(ds.read_all_process_data())
-
-    print(__name__)
+    try:
+        simple_process(2)
+    except KeyError:
+        pass
 
 
 if __name__ == "__main__":
