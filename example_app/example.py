@@ -1,6 +1,5 @@
 import pyprexor as ex
 from pyprexor.datastore import InMemoryDataStore
-from importlib.metadata import version
 
 
 @ex.PyProcess

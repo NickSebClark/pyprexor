@@ -1,10 +1,7 @@
 import inspect
 import pyprexor.datastore as ds
-import pyprexor
 from datetime import datetime
 import getpass
-import importlib.metadata
-from importlib.metadata import version
 
 datastore: ds.Datastore
 sw_version = "0.0.0"
