@@ -2,6 +2,7 @@ import pyprexor.core as core
 
 
 def test_all_parameters_present():
+    core.PyProcess(0)
     pass
 
 
