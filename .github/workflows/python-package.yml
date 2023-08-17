@@ -37,6 +37,6 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
-    - name: mypy -p pyprexor
+    - name: mypy
       run: |
-        mypy
+        mypy -p pyprexor
