@@ -40,5 +40,5 @@ jobs:
         mypy -p pyprexor
     - name: Upload coverage
       if: github.ref == 'refs/heads/main'
-      ueses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v3
 
