@@ -27,12 +27,17 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install flake8 pytest mypy
+        python -m pip install flake8 pytest mypy coverage
     - name: Lint with ruff
       uses: chartboost/ruff-action@v1
     - name: Test with pytest
       run: |
-        pytest
+        coverage run -m pytest []
+        coverage report
+        coverage xml
+    - name: Upload coverage
+      if: github.ref == 'refs/heads/main'
+      ueses: codecov/codecov-action@v3
     - name: mypy
       run: |
         mypy -p pyprexor
