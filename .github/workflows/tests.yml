@@ -35,9 +35,10 @@ jobs:
         coverage run -m pytest []
         coverage report
         coverage xml
-    - name: Upload coverage
-      if: github.ref == 'refs/heads/main'
-      ueses: codecov/codecov-action@v3
     - name: mypy
       run: |
         mypy -p pyprexor
+    - name: Upload coverage
+      if: github.ref == 'refs/heads/main'
+      ueses: codecov/codecov-action@v3
+
