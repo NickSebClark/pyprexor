@@ -2,6 +2,7 @@ import pyprexor as ex
 from pyprexor.datastore import InMemoryDataStore
 
 
+# Annotate functions we want execute with pyprexor
 @ex.PyProcess
 def simple_process(number_1, number_2: int = 2, text_param: str = "default") -> int:
     """An example process for demonstration.
@@ -19,14 +20,18 @@ def simple_process(number_1, number_2: int = 2, text_param: str = "default") -> 
 
 
 def main():
+    # Initialise a datastore to store parameter sets and process outputs
     ds = InMemoryDataStore(
         [{"id": 1, "number_1": 2, "number_2": 3}, {"id": 2, "number_2": 1, "text_param": "non-default"}]
     )
 
+    # Initialise pyprexor with your datastore.
     ex.initialise(ds, version="ex")
 
+    # execute your process passing the parameter set id.
     simple_process(1)
 
+    # Key erros will result if we try to execute with a parameter set missing a required parameter
     try:
         simple_process(2)
     except KeyError:

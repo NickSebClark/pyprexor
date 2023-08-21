@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "pyprexor"}]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.9"
 
 
 [tool.poetry.group.tests.dependencies]
