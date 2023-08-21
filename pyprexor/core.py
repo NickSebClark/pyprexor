@@ -14,6 +14,8 @@ class PyProcess:
     def __call__(self, set_id):
         print(f"Load parameter set {set_id}")
 
+        global datastore
+
         # get all the parameters from the parameter dictionary
         parameter_set = datastore.get_parameter_set(set_id)
 
