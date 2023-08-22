@@ -5,6 +5,7 @@ description = ""
 authors = ["_MircoWave_ <clarknick1990@gmail.com>"]
 readme = "README.md"
 packages = [{include = "pyprexor"}]
+repository = "https://github.com/NickSebClark/pyprexor"
 
 [tool.poetry.dependencies]
 python = "^3.9"
