@@ -3,6 +3,7 @@ from pyprexor.datastore import InMemoryDataStore
 from unittest.mock import patch
 from datetime import datetime
 import pytest
+import time
 
 
 def addition_process(a: int, b: int = 2) -> int:
@@ -58,3 +59,21 @@ def test_required_parameter_not_present():
 
     with pytest.raises(KeyError):
         process(1)
+
+
+def test_process_timing():
+    """Execute a process with slow execution and check it is timed correctly. Also tests process with no inputs."""
+
+    def slow_process():
+        time.sleep(0.01)
+
+    data_store = InMemoryDataStore([{"id": 1}])
+    core.initialise(data_store)
+
+    process = core.PyProcess(slow_process)
+
+    process(1)
+
+    process_data = data_store.read_all_process_data()[0]
+
+    assert process_data["execution_time"] >= 0.01
