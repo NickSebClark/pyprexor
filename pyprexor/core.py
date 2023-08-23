@@ -2,6 +2,7 @@ import inspect
 import pyprexor.datastore as ds
 from datetime import datetime
 import getpass
+import time
 
 datastore: ds.Datastore
 sw_version = "0.0.0"
@@ -12,7 +13,7 @@ class PyProcess:
         self.func = func
 
     def __call__(self, set_id):
-        print(f"Load parameter set {set_id}")
+        print(f"Executing {self.func.__name__} with parameter set {set_id}...")
 
         global datastore
 
@@ -34,14 +35,19 @@ class PyProcess:
                 param_value = parameter_set[name]
             func_parameters[name] = param_value
 
+        t0 = time.time()
         result = self.func(**func_parameters)
+        t1 = time.time()
+
+        print(f"...completed in {t1-t0:.3f} seconds.")
 
         process_data = {}
-        process_data["datetime"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        process_data["user"] = getpass.getuser()
-        process_data["sw_version"] = sw_version
-        process_data["data"] = result
         process_data["name"] = self.func.__name__
+        process_data["sw_version"] = sw_version
+        process_data["user"] = getpass.getuser()
+        process_data["datetime"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        process_data["execution_time"] = t1 - t0
+        process_data["data"] = result
 
         # write the result to the db
         datastore.write_process_data(process_data)

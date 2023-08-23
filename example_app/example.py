@@ -25,7 +25,7 @@ def main():
         [{"id": 1, "number_1": 2, "number_2": 3}, {"id": 2, "number_2": 1, "text_param": "non-default"}]
     )
 
-    # Initialise pyprexor with your datastore.
+    # Initialise pyprexor with your datastore and version of your app.
     ex.initialise(datastore, version="0.0.0")
 
     # execute your process passing the parameter set id.
@@ -36,6 +36,8 @@ def main():
         simple_process(2)
     except KeyError as key:
         print(key)
+
+    print(datastore.read_all_process_data())
 
 
 if __name__ == "__main__":
