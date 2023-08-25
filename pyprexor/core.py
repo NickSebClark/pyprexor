@@ -3,9 +3,16 @@ import pyprexor.datastore as ds
 from datetime import datetime
 import getpass
 import time
+import warnings
 
 datastore: ds.Datastore
 sw_version = "0.0.0"
+
+
+class TypeWarning(UserWarning):
+    """Warning raised when we try a process with incorrect types"""
+
+    pass
 
 
 class PyProcess:
@@ -32,6 +39,12 @@ class PyProcess:
                 else:
                     param_value = param.default
             else:
+                if not param.annotation == type(parameter_set[name]) and param.annotation != inspect._empty:
+                    warnings.warn(
+                        f"Typing for input {name} does not match. Found: {type(parameter_set[name])} "
+                        f"Expected: {param.annotation}",
+                        TypeWarning,
+                    )
                 param_value = parameter_set[name]
             func_parameters[name] = param_value
 

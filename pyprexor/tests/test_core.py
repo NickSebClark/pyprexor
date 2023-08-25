@@ -4,6 +4,7 @@ from unittest.mock import patch
 from datetime import datetime
 import pytest
 import time
+import warnings
 
 
 def addition_process(a: int, b: int = 2) -> int:
@@ -77,3 +78,33 @@ def test_process_timing():
     process_data = data_store.read_all_process_data()[0]
 
     assert process_data["execution_time"] >= 0.01
+
+
+def test_typing_check():
+    def typed_process(a: int):
+        pass
+
+    def untyped_process(a):
+        pass
+
+    data_store = InMemoryDataStore([{"id": 1, "a": 1}, {"id": 2, "a": "string"}])
+    core.initialise(data_store)
+
+    process = core.PyProcess(typed_process)
+
+    # test corret typing. I.e. no warning raised
+    with warnings.catch_warnings(record=True) as w:
+        warnings.simplefilter("always")
+        process(1)
+        assert not any(issubclass(item.category, core.TypeWarning) for item in w)
+
+    # test incorrect typing
+    with pytest.warns(core.TypeWarning):
+        process(2)
+
+    # test no type hint supplied
+    process_2 = core.PyProcess(untyped_process)
+    with warnings.catch_warnings(record=True) as w:
+        warnings.simplefilter("always")
+        process_2(1)
+        assert not any(issubclass(item.category, core.TypeWarning) for item in w)
