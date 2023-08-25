@@ -41,7 +41,8 @@ class PyProcess:
             else:
                 if not param.annotation == type(parameter_set[name]) and param.annotation != inspect._empty:
                     warnings.warn(
-                        f"Typing for input {name} does not match. Found: {type(parameter_set[name])}. Expected: {param.annotation}",
+                        f"Typing for input {name} does not match. Found: {type(parameter_set[name])} "
+                        f"Expected: {param.annotation}",
                         TypeWarning,
                     )
                 param_value = parameter_set[name]
