@@ -17,6 +17,10 @@ ruff = "^0.0.285"
 mypy = "^1.5.1"
 coverage = "^7.3.0"
 
+
+[tool.poetry.group.mongo.dependencies]
+pymongo = "^4.5.0"
+
 [tool.poetry-dynamic-versioning]
 enable = true
 
