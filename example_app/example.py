@@ -1,5 +1,5 @@
 import pyprexor as ex
-from pyprexor.datastore import InMemoryDataStore
+from pyprexor_datastore.datastore import InMemoryDataStore
 
 
 # Annotate functions we want execute with pyprexor

@@ -1,5 +1,5 @@
 import inspect
-import pyprexor.datastore as ds
+import pyprexor_datastore.datastore as ds
 from datetime import datetime
 import getpass
 import time
@@ -56,6 +56,7 @@ class PyProcess:
 
         process_data = {}
         process_data["name"] = self.func.__name__
+        process_data["parameter_set_id"] = set_id
         process_data["sw_version"] = sw_version
         process_data["user"] = getpass.getuser()
         process_data["datetime"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")

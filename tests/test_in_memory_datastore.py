@@ -1,4 +1,4 @@
-import pyprexor.datastore as datastore
+import pyprexor_datastore.datastore as datastore
 import pytest
 
 
@@ -10,9 +10,9 @@ def default_data():
 def test_init_re_index(default_data):
     store = datastore.InMemoryDataStore(default_data, re_index=True)
 
-    default_data[0]["id"] = 0
+    default_data[0]["id"] = "0"
 
-    assert default_data[0] == store.get_parameter_set(0)
+    assert default_data[0] == store.get_parameter_set("0")
 
 
 def test_init(default_data):

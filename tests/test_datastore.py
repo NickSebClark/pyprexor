@@ -1,4 +1,4 @@
-import pyprexor.datastore as datastore
+import pyprexor_datastore.datastore as datastore
 import pytest
 
 
