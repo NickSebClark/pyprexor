@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "pyprexor"
 version = "0.0.0"
-description = ""
-authors = ["_MircoWave_ <clarknick1990@gmail.com>"]
+description = "Python process executor"
+authors = ["NickSebClark <clarknick1990@gmail.com>"]
 readme = "README.md"
 packages = [{include = "pyprexor"}, {include = "pyprexor_datastore"}]
 repository = "https://github.com/NickSebClark/pyprexor"
