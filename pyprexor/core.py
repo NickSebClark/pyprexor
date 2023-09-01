@@ -4,6 +4,7 @@ from datetime import datetime
 import getpass
 import time
 import warnings
+from typing import Any
 
 datastore: ds.Datastore
 sw_version = "0.0.0"
@@ -16,10 +17,24 @@ class TypeWarning(UserWarning):
 
 
 class PyProcess:
+    """Class style decorator. Provides core Pyprexor functionality."""
+
     def __init__(self, func=None):
         self.func = func
 
-    def __call__(self, set_id):
+    def __call__(self, set_id: str) -> Any:
+        """Reads parameter set, calls the wrapped function with the parameters from the parameter set then populates a
+        process data object and writes it to the datastore.
+
+        Args:
+            set_id (str): Parameter set id to pull parameters from.
+
+        Raises:
+            KeyError: Required parameter not in the parameter set.
+
+        Returns:
+            Any: Normal function return
+        """
         print(f"Executing {self.func.__name__} with parameter set {set_id}...")
 
         global datastore
@@ -71,6 +86,12 @@ class PyProcess:
 
 
 def initialise(store: ds.Datastore, version: str = ""):
+    """Initialises globals used by pyprexor.
+
+    Args:
+        store (ds.Datastore): Datastore object to use.
+        version (str, optional): Version string to store in process data. Defaults to "".
+    """
     global datastore
     datastore = store
 

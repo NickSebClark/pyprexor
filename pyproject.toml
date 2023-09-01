@@ -16,6 +16,7 @@ pytest = "^7.4.0"
 ruff = "^0.0.285"
 mypy = "^1.5.1"
 coverage = "^7.3.0"
+mongomock = "^4.1.2"
 
 
 [tool.poetry.group.mongo.dependencies]

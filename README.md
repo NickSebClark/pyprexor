@@ -41,14 +41,8 @@ Pyprexor ships with an *InMemoryDatastore*. This allows parameter sets to be loa
 
 ### MongoDB
 
-A basic wrapper around the MongoDB API is provided in [pyprexor_datastore.mongo](pyrprexor_datastore/mongo.py). It requires that pymongo is installed separately, i.e. 
+A basic wrapper around the MongoDB API is provided in [pyprexor_datastore.mongo](pyrprexor_datastore/mongo.py). It requires that pymongo is installed separately (i.e. ```pip install mongo```). If running the package from source, you an use :
 
 ```
-poetry add pymongo
-``` 
-
-or 
-
-```
-pip install pymongo
+poetry install --with mongo
 ```
