@@ -34,3 +34,15 @@ poetry install
 ## Contribution Guide
 
 The project is linted with [ruff](https://github.com/astral-sh/ruff), styled with [black](https://github.com/psf/black) and type checked with [mypy](https://github.com/python/mypy).
+
+## Datastores
+
+Pyprexor ships with an *InMemoryDatastore*. This allows parameter sets to be loaded into memory on initialisation. Process data is added to a list in memory and can be read out on command. See the [example.py](/example_app/example.py) for usage.
+
+### MongoDB
+
+A basic wrapper around the MongoDB API is provided in [pyprexor_datastore.mongo](pyrprexor_datastore/mongo.py). It requires that pymongo is installed separately (i.e. ```pip install mongo```). If running the package from source, you an use :
+
+```
+poetry install --with mongo
+```

@@ -4,7 +4,7 @@ version = "0.0.0"
 description = ""
 authors = ["_MircoWave_ <clarknick1990@gmail.com>"]
 readme = "README.md"
-packages = [{include = "pyprexor"}]
+packages = [{include = "pyprexor"}, {include = "pyprexor_datastore"}]
 repository = "https://github.com/NickSebClark/pyprexor"
 
 [tool.poetry.dependencies]
@@ -16,6 +16,11 @@ pytest = "^7.4.0"
 ruff = "^0.0.285"
 mypy = "^1.5.1"
 coverage = "^7.3.0"
+mongomock = "^4.1.2"
+
+
+[tool.poetry.group.mongo.dependencies]
+pymongo = "^4.5.0"
 
 [tool.poetry-dynamic-versioning]
 enable = true
