@@ -1,5 +1,4 @@
 import pyprexor as ex
-from pyprexor_datastore.datastore import InMemoryDataStore
 
 
 # Annotate functions we want execute with pyprexor
@@ -21,7 +20,7 @@ def simple_process(number_1, number_2: int = 2, text_param: str = "default") -> 
 
 def main():
     # Initialise a datastore to store parameter sets and process outputs
-    datastore = InMemoryDataStore(
+    datastore = ex.InMemoryDataStore(
         [{"id": 1, "number_1": 2, "number_2": 3}, {"id": 2, "number_2": 1, "text_param": "non-default"}]
     )
 
